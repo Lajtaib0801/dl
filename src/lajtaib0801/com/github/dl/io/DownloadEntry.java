@@ -5,6 +5,8 @@ import lajtaib0801.com.github.dl.io.exception.InvalidInputException;
 import lajtaib0801.com.github.dl.io.exception.TooManyArgumentsForFileException;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -13,7 +15,7 @@ public class DownloadEntry {
     private URL path;
     private String fileName;
 
-    public DownloadEntry(String[] fileParams) throws InvalidInputException, MalformedURLException {
+    public DownloadEntry(String[] fileParams) throws InvalidInputException, MalformedURLException, URISyntaxException {
         if (fileParams.length > 2) {
             throw new TooManyArgumentsForFileException(
                     Arrays.stream(fileParams)
@@ -21,7 +23,7 @@ public class DownloadEntry {
             );
         }
         String url = fileParams[0].strip();
-        path = new URL(url);
+        path = new URI(url).toURL();
         if (fileParams.length == 1) {
             fileName = path.getPath().substring(path.getPath().lastIndexOf('/') + 1);
             if (fileName.isEmpty()) {

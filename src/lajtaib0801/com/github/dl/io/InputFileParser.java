@@ -4,17 +4,18 @@ import lajtaib0801.com.github.dl.io.exception.*;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputFileParser {
     private final ArrayList<DownloadEntry> filesToDownload;
 
-    public InputFileParser(String inputFile) throws InvalidInputException, IOException {
+    public InputFileParser(String inputFile) throws InvalidInputException, IOException, URISyntaxException {
         filesToDownload = loadInputFile(inputFile);
     }
 
-    private ArrayList<DownloadEntry> loadInputFile(String inputFileName) throws InvalidInputException, IOException {
+    private ArrayList<DownloadEntry> loadInputFile(String inputFileName) throws InvalidInputException, IOException, URISyntaxException {
         ArrayList<DownloadEntry> entries = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new FileReader(inputFileName))) {
