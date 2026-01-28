@@ -10,15 +10,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputFileParser {
-    private final ArrayList<DownloadEntry> filesToDownload;
+    private final ArrayList<EntryToDownload> filesToDownload;
 
     public InputFileParser(String inputFile) throws InvalidInputException, IOException, URISyntaxException {
         Path inputFilePath = PathParser.parse(inputFile);
         filesToDownload = loadInputFile(inputFilePath);
     }
 
-    private ArrayList<DownloadEntry> loadInputFile(Path inputFile) throws InvalidInputException, IOException, URISyntaxException {
-        ArrayList<DownloadEntry> entries = new ArrayList<>();
+    private ArrayList<EntryToDownload> loadInputFile(Path inputFile) throws InvalidInputException, IOException, URISyntaxException {
+        ArrayList<EntryToDownload> entries = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new FileReader(inputFile.toString()))) {
             while (scanner.hasNextLine()) {
@@ -26,7 +26,7 @@ public class InputFileParser {
                 if (line.isEmpty()) {
                     continue;
                 }
-                DownloadEntry file = new DownloadEntry(line);
+                EntryToDownload file = new EntryToDownload(line);
 
                 if (entries.stream().anyMatch(x -> file.getFileName().equals(x.getFileName()))) {
                     throw new EntryAlreadyExistsWithFileNameException(file.getFileName());
@@ -38,7 +38,7 @@ public class InputFileParser {
         return entries;
     }
 
-    public ArrayList<DownloadEntry> getFilesToDownload() {
+    public ArrayList<EntryToDownload> getFilesToDownload() {
         return filesToDownload;
     }
 

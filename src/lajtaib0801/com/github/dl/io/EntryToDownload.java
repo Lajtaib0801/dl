@@ -10,11 +10,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
 
-public class DownloadEntry {
+public class EntryToDownload {
     private final URL url;
     private final String fileName;
 
-    public DownloadEntry(String line) throws InvalidInputException, MalformedURLException, URISyntaxException {
+    public EntryToDownload(String line) throws InvalidInputException, MalformedURLException, URISyntaxException {
         if (line.contains("-as")) {
             String[] splittedLine = Arrays.stream(line.split("-as")).map(x -> x.strip()).toArray(String[]::new);
             if (splittedLine[0].isEmpty()) {
