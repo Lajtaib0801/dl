@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class InputFileParser {
-    private ArrayList<DownloadEntry> filesToDownload;
+    private final ArrayList<DownloadEntry> filesToDownload;
 
     public InputFileParser(String inputFile) throws InvalidInputException, IOException {
         filesToDownload = loadInputFile(inputFile);
