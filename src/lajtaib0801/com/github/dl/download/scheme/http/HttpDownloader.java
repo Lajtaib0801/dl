@@ -1,7 +1,8 @@
-package lajtaib0801.com.github.dl.network;
+package lajtaib0801.com.github.dl.download.scheme.http;
 
-import lajtaib0801.com.github.dl.io.EntryToDownload;
-import lajtaib0801.com.github.dl.network.exception.DownloadException;
+import lajtaib0801.com.github.dl.download.Downloader;
+import lajtaib0801.com.github.dl.model.EntryToDownload;
+import lajtaib0801.com.github.dl.download.exception.DownloadException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,12 +11,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public class HttpDownloader implements Downloader {
     @Override
-    public void download(EntryToDownload entry, Path targetDir) throws DownloadException, IOException {
+    public void download(EntryToDownload entry) throws IOException {
         boolean downloadFinished = false;
         long existingSize = Files.exists(entry.getOutputPath()) ? Files.size(entry.getOutputPath()) : 0;
         while (!downloadFinished) {

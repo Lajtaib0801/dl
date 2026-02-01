@@ -1,6 +1,7 @@
 package lajtaib0801.com.github.dl.io;
 
 import lajtaib0801.com.github.dl.io.exception.*;
+import lajtaib0801.com.github.dl.model.EntryToDownload;
 
 import java.io.FileReader;
 import java.io.IOException;

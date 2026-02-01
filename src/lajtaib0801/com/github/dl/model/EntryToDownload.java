@@ -1,5 +1,6 @@
-package lajtaib0801.com.github.dl.io;
+package lajtaib0801.com.github.dl.model;
 
+import lajtaib0801.com.github.dl.io.PathParser;
 import lajtaib0801.com.github.dl.io.exception.EmptyFileNameException;
 import lajtaib0801.com.github.dl.io.exception.EmptyUrlException;
 import lajtaib0801.com.github.dl.io.exception.InvalidInputException;
