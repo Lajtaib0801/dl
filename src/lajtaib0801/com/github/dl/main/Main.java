@@ -10,7 +10,7 @@ public class Main {
             System.out.printf("Test output:");
             int counter = 1;
             for (var parsedLine : parser.getFilesToDownload()) {
-                System.out.printf("File%d\n\tUrl:\t%s\n\tFile name:\t%s\n", counter, parsedLine.getUrl(), parsedLine.getFileName());
+                System.out.printf("File%d\n\tUrl:\t%s\n\tFile name:\t%s\n", counter, parsedLine.getUri(), parsedLine.getOutputPath());
                 counter++;
             }
         } catch (Exception e) {

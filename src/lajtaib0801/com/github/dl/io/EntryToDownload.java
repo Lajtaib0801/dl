@@ -4,37 +4,42 @@ import lajtaib0801.com.github.dl.io.exception.EmptyFileNameException;
 import lajtaib0801.com.github.dl.io.exception.EmptyUrlException;
 import lajtaib0801.com.github.dl.io.exception.InvalidInputException;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class EntryToDownload {
-    private final URL url;
-    private final String fileName;
+    private final URI uri;
+    private final Path outputPath;
 
-    public EntryToDownload(String line) throws InvalidInputException, MalformedURLException, URISyntaxException {
+    public EntryToDownload(String line) throws InvalidInputException, URISyntaxException {
         if (line.contains("-as")) {
-            String[] splittedLine = Arrays.stream(line.split("-as")).map(x -> x.strip()).toArray(String[]::new);
+            String[] splittedLine = Arrays.stream(line.split(" -as ")).map(x -> x.strip()).toArray(String[]::new);
             if (splittedLine[0].isEmpty()) {
                 throw new EmptyUrlException("Empty url in line: '" + line + "'");
             }
-            url = new URI(splittedLine[0]).toURL();
+            uri = new URI(splittedLine[0]);
             if (splittedLine[1].isEmpty()) {
-                throw new EmptyFileNameException("Empty file name for path: " + url);
+                throw new EmptyFileNameException("Empty file name for path: " + uri);
             }
-            fileName = splittedLine[1];
+            outputPath = PathParser.parse(splittedLine[1]);
         } else {
-            url = new URI(line.strip()).toURL();
-            fileName = url.getPath().substring(url.getPath().lastIndexOf('/') + 1);
+            uri = new URI(line.strip());
+            Path downloadsDir = Paths.get(System.getProperty("user.home"), "Downloads");
+            String fileNameFromUrl = Paths.get(uri.getPath())
+                    .getFileName() != null
+                    ? Paths.get(uri.getPath()).getFileName().toString()
+                    : "downloaded_file";
+            outputPath = PathParser.parse(downloadsDir.resolve(fileNameFromUrl).toString());
         }
     }
-    public URL getUrl() {
-        return url;
+    public URI getUri() {
+        return uri;
     }
 
-    public String getFileName() {
-        return fileName;
+    public Path getOutputPath() {
+        return outputPath;
     }
 }

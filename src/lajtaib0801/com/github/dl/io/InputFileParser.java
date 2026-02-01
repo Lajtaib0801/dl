@@ -28,8 +28,8 @@ public class InputFileParser {
                 }
                 EntryToDownload file = new EntryToDownload(line);
 
-                if (entries.stream().anyMatch(x -> file.getFileName().equals(x.getFileName()))) {
-                    throw new EntryAlreadyExistsWithFileNameException(file.getFileName());
+                if (entries.stream().anyMatch(x -> file.getOutputPath().equals(x.getOutputPath()))) {
+                    throw new EntryAlreadyExistsWithFileNameException(file.getOutputPath().toString());
                 }
                 entries.add(file);
             }
